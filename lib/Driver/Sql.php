@@ -43,7 +43,6 @@ class Tessera_Driver_Sql extends Tessera_Driver
 	 */
 	public function getSecret($user)
 	{
-		/* Build the SQL query. */
 		$query = sprintf('SELECT secret FROM %s WHERE user=%s',
 			$this->_params['table'],
 			$this->_db->quote($user),
@@ -60,11 +59,7 @@ class Tessera_Driver_Sql extends Tessera_Driver
 	
 	public function setSecret($user, $secret) {
 		$query = sprintf('REPLACE INTO %s (user,secret) VALUES(?,?)', $this->_params['table']);
-		
-		$values = [
-			$user,
-			$secret
-		];
+		$values = [ $user, $secret ];
 		
 		try {
 			$this->_db->update($query, $values);
@@ -75,10 +70,7 @@ class Tessera_Driver_Sql extends Tessera_Driver
 	
 	public function delSecret($user) {
 		$query = sprintf('DELETE FROM %s WHERE user=?', $this->_params['table']);
-		
-		$values = [
-			$user
-		];
+		$values = [ $user ];
 		
 		try {
 			$this->_db->update($query, $values);
