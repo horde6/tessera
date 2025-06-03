@@ -1,0 +1,36 @@
+/* Sidebar menu */
+.tessera-list {
+    background-image: url("graphics/user.png");
+}
+
+/* Button bar */
+.tessera-delete {
+    background-image: url("graphics/delete.png");
+}
+
+/* List table */
+.horde-table {
+    width: 100%;
+}
+
+table.tessera td, table.tessera th {
+    text-align: center;
+    padding: 1px 10px 1px 10px;
+}
+
+table.tessera th {
+    text-decoration: underline;
+}
+
+table.tessera th:first-child {
+    text-align: left;
+}
+
+table.tessera td:first-child {
+    text-align: left;
+    font-weight: bold;
+}
+
+table.tessera.left td, table.tessera.left th {
+    text-align: left;
+}

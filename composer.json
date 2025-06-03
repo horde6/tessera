@@ -1,0 +1,20 @@
+{
+    "minimum-stability": "dev",
+    "name": "horde/tessera",
+    "description": "Two factor authentication Horde",
+    "type": "horde-application",
+    "require": {
+        "horde/horde": "^6 || dev-FRAMEWORK_6_0"
+    },
+    "license": "GPL-2.0-only",
+    "autoload": {
+        "psr-0": {
+            "Tessera": "lib/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dmitry Petrov"
+        }
+    ]
+}
