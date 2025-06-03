@@ -9,3 +9,6 @@ ISSUES:
    Horde's login.php/login.inc need to be modified to add an input field for the TOTP if TOTP is not "disabled". Currently it is unconditional - see `_patched` folder.
 3) Code in `hooks.php` (see `_patched` folder) might need to be moved elsewhere.
    Also, the code calls `$this->authusername($userId, TRUE)` directly. I should probably use `convertUsername()` instead.
+4) The current code relies on SQL table `nch_auth`. This probably sohuld be renamed to `horde_totp`.
+5) Currently only SQL driver is supported.
+6) Translations?
