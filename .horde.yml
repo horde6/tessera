@@ -1,0 +1,35 @@
+---
+id: tessera
+name: Tessera
+full: Two Factor Authentication Module
+description: >-
+  Provides optional Two Factor Authentication through TOTP
+list: horde
+type: application
+homepage: https://www.horde.org/apps/tessera
+authors:
+  -
+    name: Dmitry Petrov
+    user: --
+    email: dpetrov67@gmail.com
+    active: true
+    role: lead
+version:
+  release: 1.0.0-alpha1
+  api: 1.0.0alpha1
+state:
+  release: alpha
+  api: alpha
+license:
+  identifier: GPL-2.0-only
+  uri: http://www.horde.org/licenses/gpl
+dependencies:
+  required:
+    php: ^8.2
+    composer:
+      horde/horde: ^6
+      horde/core: ^3
+      horde/db: ^3
+      tecnickcom/tcpdf: ^6.10
+    ext:
+      gettext: '*'

@@ -1,5 +1,4 @@
 <?php
-require_once 'tessera/googleauth.php';
 
 class Tessera {
 	public static function SiteName() {
@@ -11,24 +10,24 @@ class Tessera {
 	}
 	
 	public static function QRCodeAuth($user, $secret) {
-		$url = GoogleAuth::GetUri(self::SiteName(), $user, $secret);
+		$url = Tessera_Google::GetUri(self::SiteName(), $user, $secret);
 		return self::QRCode($url);
 	}
 	
 	public static function QRCode($url, $size = 3, $type = 'H') {
-		require_once 'tessera/barcode.php';
-		return BarCode::QRCode($url, $size, $type);
+		$qrcode = new TCPDF2DBarcode($url, 'QRCODE,' . $type);
+		return $qrcode->getBarcodeHTML($size, $size);
 	}
 	
 	public static function GenerateKey() {
-		return GoogleAuth::GenerateKey();
+		return Tessera_Google::GenerateKey();
 	}
 
 	public static function Authenticate($secret, $otp) {
-		return GoogleAuth::Authenticate($secret, $otp);
+		return Tessera_Google::Authenticate($secret, $otp);
 	}
 
 	public static function GetCode($secret) {
-		return GoogleAuth::CurrentCode($secret);
+		return Tessera_Google::CurrentCode($secret);
 	}
 }

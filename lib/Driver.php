@@ -13,14 +13,14 @@ abstract class Tessera_Driver
      *
      * @var array
      */
-    protected $_params = array();
+    protected $_params = [];
 
     /**
      * Constructor.
      *
      * @param array $params  A hash containing connection parameters.
      */
-    public function __construct($params = array())
+    public function __construct($params = [])
     {
         $this->_params = $params;
     }

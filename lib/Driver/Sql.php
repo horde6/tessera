@@ -24,7 +24,7 @@ class Tessera_Driver_Sql extends Tessera_Driver
      *
      * @throws InvalidArgumentException
      */
-	public function __construct(array $params = array()) {
+	public function __construct(array $params = []) {
 		if (!isset($params['db'])) {
 			throw new InvalidArgumentException('Missing db parameter.');
 		}

@@ -10,7 +10,7 @@ class Tessera_Factory_Driver extends Horde_Core_Factory_Injector
     /**
      * @var array
      */
-    private $_instances = array();
+    private $_instances = [];
 
     /**
      * Return an Tessera_Driver instance.
@@ -20,7 +20,7 @@ class Tessera_Factory_Driver extends Horde_Core_Factory_Injector
     public function create(Horde_Injector $injector)
     {
         $driver = Horde_String::ucfirst($GLOBALS['conf']['storage']['driver']);
-        $signature = serialize(array($driver, $GLOBALS['conf']['storage']['params']['driverconfig']));
+        $signature = serialize([ $driver, $GLOBALS['conf']['storage']['params']['driverconfig'] ]);
         if (empty($this->_instances[$signature])) {
             switch ($driver) {
             case 'Sql':
@@ -33,11 +33,11 @@ class Tessera_Factory_Driver extends Horde_Core_Factory_Injector
                 } catch (Horde_Exception $e) {
                     throw new Tessera_Exception($e);
                 }
-                $params = array('db' => $db);
+                $params = [ 'db' => $db ];
                 break;
             case 'Ldap':
                 try {
-                    $params = array('ldap' => $injector->getIntance('Horde_Core_Factory_Ldap')->create('tessera', 'storage'));
+                    $params = [ 'ldap' => $injector->getIntance('Horde_Core_Factory_Ldap')->create('tessera', 'storage') ];
                 } catch (Horde_Exception $e) {
                     throw new Tessera_Exception($e);
                 }

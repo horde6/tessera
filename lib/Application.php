@@ -103,19 +103,19 @@ class Tessera_Application extends Horde_Registry_Application
      *
      * @throws Horde_Exception
      */
-    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null, array $params = array())
+    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null, array $params = [])
     {
 /*
-	$tree->addNode(array(
+	$tree->addNode([
 		'id' => $parent . '__sub',
 		'parent' => $parent,
 		'label' => _("Reset"),
 		'expanded' => false,
-		'params' => array(
+		'params' => [
 //			'icon' => Horde_Themes::img('reset.png'),
 			'url' => Horde::url('?reset=1'),
-		),
-	));
+		],
+	]);
 */
     }
 }

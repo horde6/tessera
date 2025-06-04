@@ -3,18 +3,37 @@
     "name": "horde/tessera",
     "description": "Two factor authentication Horde",
     "type": "horde-application",
-    "require": {
-        "horde/horde": "^6 || dev-FRAMEWORK_6_0"
-    },
+    "homepage": "https://www.horde.org/apps/tessera",
     "license": "GPL-2.0-only",
+    "authors": [
+        {
+            "name": "Dmitry Petrov",
+            "email": "dpetrov67@gmail.com",
+            "role": "lead"
+        }
+    ],
+    "time": "2025-06-04",
+    "repositories": [],
+    "require": {
+        "horde/horde-installer-plugin": "dev-FRAMEWORK_6_0 || ^3 || ^2",
+        "php": "^8.2",
+        "horde/horde": "^6 || dev-FRAMEWORK_6_0",
+        "horde/core": "^3 || dev-FRAMEWORK_6_0",
+        "horde/db": "^3 || dev-FRAMEWORK_6_0",
+        "tecnickcom/tcpdf": "^6.10",
+        "ext-gettext": "*"
+    },
+    "require-dev": {},
+    "suggest": {},
     "autoload": {
         "psr-0": {
             "Tessera": "lib/"
         }
     },
-    "authors": [
-        {
-            "name": "Dmitry Petrov"
+    "autoload-dev": {},
+    "config": {
+        "allow-plugins": {
+            "horde/horde-installer-plugin": true
         }
-    ]
+    }
 }

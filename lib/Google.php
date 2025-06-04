@@ -1,7 +1,6 @@
 <?php
-// Heavily reworked code with original snippets taken from https://github.com/dochne/google-authenticator/
 
-class GoogleAuth {
+class Tessera_Google {
 	// Base32 encoding characters
 	protected static $Base32Chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 	
