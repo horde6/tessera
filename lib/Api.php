@@ -12,25 +12,47 @@ class Tessera_Api extends Horde_Registry_Api
 {
     public function isOptional(): bool
     {
-        // TODO
-        return true;
+        $mode = OtpAuth::Mode();
+
+        return $mode != 'require';
     }
+
     public function isEnabled(): bool
     {
-        // TODO
-        return true;
+        $mode = OtpAuth::Mode();
+
+        return $mode != 'disabled';
     }
-    public function userHasConfiguredTwoFactor(string $uid): bool
-    {
-        // TODO
-        return true;
-    }
+
     /**
      * Check if a given input is the currently valid TOTP for this user
      */
     public function checkInput(string $uid, string $input): bool
     {
-        // TODO
-        return true;
+        if (!$this->isEnabled()) {
+            return TRUE;
+        }
+
+        $driver = $GLOBALS['injector']->getInstance('OtpAuth_Driver');
+        $secret = $driver->getSecret($uid);
+
+        // fallback to special secret for new users
+        if ($secret == '')
+            $secret = $driver->getSecret('[NEW]');
+
+        if ($secret == '' && $this->isOptional()) {
+            return TRUE;
+        }
+
+        if (OtpAuth::Authenticate($secret, $input)) {
+            return TRUE;
+        }
+
+        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
+
+        // do not disclose if user has not configured OTP
+        $auth->setError(Horde_Auth::REASON_MESSAGE, empty($input) ? 'One-time password is not entered.' : 'One-time password is invalid.');
+
+        return FALSE;
     }
 }
