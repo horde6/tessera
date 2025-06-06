@@ -34,23 +34,29 @@ class Tessera_Api extends Horde_Registry_Api
         }
 
         $driver = $GLOBALS['injector']->getInstance('OtpAuth_Driver');
+
+        $uid = $GLOBALS['registry']->convertUsername($uid, TRUE);
+
         $secret = $driver->getSecret($uid);
 
-        // fallback to special secret for new users
-        if ($secret == '')
-            $secret = $driver->getSecret('[NEW]');
+        if ($secret == '') {
+            if ($this->isOptional()) {
+                return TRUE;
+            }
 
-        if ($secret == '' && $this->isOptional()) {
-            return TRUE;
+            // fallback to a special secret for new users
+            $secret = $driver->getSecret('[NEW]');
         }
 
         if (OtpAuth::Authenticate($secret, $input)) {
             return TRUE;
         }
 
+        // The below probably does not belong here
+        // Instead of TRUE/FALSE we could return string with error message
         $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
 
-        // do not disclose if user has not configured OTP
+        // Note, we intentionally do not disclose if user has not configured OTP
         $auth->setError(Horde_Auth::REASON_MESSAGE, empty($input) ? 'One-time password is not entered.' : 'One-time password is invalid.');
 
         return FALSE;
