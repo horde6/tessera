@@ -58,6 +58,8 @@ class Tessera_Driver_Sql extends Tessera_Driver
 	}
 	
 	public function setSecret($user, $secret) {
+		// TODO: Check if secret looks like a valid secret.
+		// This will work on mariadb and mysql but not all standard SQL databases implement it.
 		$query = sprintf('REPLACE INTO %s (user,secret) VALUES(?,?)', $this->_params['table']);
 		$values = [ $user, $secret ];
 		
