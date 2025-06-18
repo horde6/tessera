@@ -32,6 +32,9 @@ class AddAuthTable extends Horde_Db_Migration_Base
      */
     public function down()
     {
-        $this->dropTable(self::$tbl);
+        $tables = $this->tables();
+        if (in_array(self::$tbl, $tables)) {
+            $this->dropTable(self::$tbl);
+        }
     }
 }

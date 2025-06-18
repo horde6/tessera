@@ -1,4 +1,5 @@
 <?php
+
 /* Determine the base directories. */
 if (!defined('TESSERA_BASE')) {
     define('TESSERA_BASE', realpath(__DIR__ . '/..'));
@@ -37,7 +38,7 @@ class Tessera_Application extends Horde_Registry_Application
      */
     protected function _bootstrap()
     {
-	$GLOBALS['injector']->bindFactory('Tessera_Driver', 'Tessera_Factory_Driver', 'create');
+        $GLOBALS['injector']->bindFactory('Tessera_Driver', 'Tessera_Factory_Driver', 'create');
     }
 
     /**
@@ -50,33 +51,33 @@ class Tessera_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-	/* If index.php == lists.php, jump some extra loops to highlight the
-	 * menu entry. */
-	$menu->add(
-		Horde::url('?setup'),
-		("Reconfigure"),
-		'tessera-reconfigure',
-		null,
-		null,
-		null,
-		basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null
-	);
-	
-	if ($GLOBALS['registry']->isAdmin()) {
-		$menu->add(
-			Horde::url('admin.php'),
-			("Admin Tools"),
-			'tessera-admin',
-			null,
-			null,
-			null,
-			basename($_SERVER['PHP_SELF']) == 'admin.php' ? 'current' : null
-		);
-	}
-	
-	
-	/* A regular entry. */
-	//$menu->add(Horde::url('data.php'), _("Import/Export"), 'horde-data');
+        /* If index.php == lists.php, jump some extra loops to highlight the
+         * menu entry. */
+        $menu->add(
+            Horde::url('?setup'),
+            ("Reconfigure"),
+            'tessera-reconfigure',
+            null,
+            null,
+            null,
+            basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null
+        );
+
+        if ($GLOBALS['registry']->isAdmin()) {
+            $menu->add(
+                Horde::url('admin.php'),
+                ("Admin Tools"),
+                'tessera-admin',
+                null,
+                null,
+                null,
+                basename($_SERVER['PHP_SELF']) == 'admin.php' ? 'current' : null
+            );
+        }
+
+
+        /* A regular entry. */
+        //$menu->add(Horde::url('data.php'), _("Import/Export"), 'horde-data');
     }
 
     /**
@@ -86,12 +87,12 @@ class Tessera_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
-	$url = Horde::url('');
-	
-	$sidebar->addNewButton(
-		_("_Setup OTP"),
-		$url
-	);
+        $url = Horde::url('');
+
+        $sidebar->addNewButton(
+            _("_Setup OTP"),
+            $url
+        );
     }
 
     /**
@@ -105,17 +106,17 @@ class Tessera_Application extends Horde_Registry_Application
      */
     public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null, array $params = [])
     {
-/*
-	$tree->addNode([
-		'id' => $parent . '__sub',
-		'parent' => $parent,
-		'label' => _("Reset"),
-		'expanded' => false,
-		'params' => [
-//			'icon' => Horde_Themes::img('reset.png'),
-			'url' => Horde::url('?reset=1'),
-		],
-	]);
-*/
+        /*
+            $tree->addNode([
+                'id' => $parent . '__sub',
+                'parent' => $parent,
+                'label' => _("Reset"),
+                'expanded' => false,
+                'params' => [
+        //			'icon' => Horde_Themes::img('reset.png'),
+                    'url' => Horde::url('?reset=1'),
+                ],
+            ]);
+        */
     }
 }

@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * @coversNothing
+ */
 class Tessera_Test extends Horde_Test
 {
     /**
@@ -41,8 +45,6 @@ class Tessera_Test extends Horde_Test
      *
      * @return string  HTML output.
      */
-    public function appTests()
-    {
-    }
+    public function appTests() {}
 
 }

@@ -4,9 +4,9 @@
   <configheader>General Settings</configheader>
    <configstring name="name" desc="What site name should we use?" />
    <configswitch name="mode" desc="When should we use one-time-passwords (OTP)?">enable
-   <case name="disable" desc="Disable OTP" />
-   <case name="enable" desc="Enable OTP for users who configured it" />
-   <case name="require" desc="Require OTP for all users" />
+   <case name="disabled" desc="Disable OTP" />
+   <case name="enabled" desc="Enable OTP for users who configured it" />
+   <case name="required" desc="Require OTP for all users" />
   </configswitch>
  </configsection>
  <configsection name="storage">

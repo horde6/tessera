@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Tessera external API.
  *
@@ -10,55 +11,63 @@
  */
 class Tessera_Api extends Horde_Registry_Api
 {
-    public function isOptional(): bool
+    public function isOptional(?string $uid = null): bool
     {
-        $mode = OtpAuth::Mode();
+        $mode = Tessera::Mode();
 
-        return $mode != 'require';
+        return $mode != 'required';
     }
 
-    public function isEnabled(): bool
+    public function isEnabled(?string $uid = null): bool
     {
-        $mode = OtpAuth::Mode();
-
+        $mode = Tessera::Mode();
         return $mode != 'disabled';
     }
 
+    public function isSetup(string $uid): bool
+    {
+        $driver = $GLOBALS['injector']->getInstance('Tessera_Driver');
+        $uid = $GLOBALS['registry']->convertUsername($uid, TRUE);
+        return $driver->getSecret($uid) !== '';
+    }
+
     /**
-     * Check if a given input is the currently valid TOTP for this user
+     * Check if a given input is the currently valid OTP for the user
+     *
+     * @param string $uid    User ID
+     * @param string $input  OTP to check
+     * @return string        Error message if OTP is invalid/missing, empty string otherwise
      */
-    public function checkInput(string $uid, string $input): bool
+    public function blockLogin(string $uid, string $input): string
     {
         if (!$this->isEnabled()) {
-            return TRUE;
+            return '';
         }
 
-        $driver = $GLOBALS['injector']->getInstance('OtpAuth_Driver');
+        $driver = $GLOBALS['injector']->getInstance('Tessera_Driver');
 
-        $uid = $GLOBALS['registry']->convertUsername($uid, TRUE);
+        $uid = $GLOBALS['registry']->convertUsername($uid, true);
 
         $secret = $driver->getSecret($uid);
 
-        if ($secret == '') {
+        if ($secret === '') {
             if ($this->isOptional()) {
-                return TRUE;
+                return '';
             }
 
             // fallback to a special secret for new users
             $secret = $driver->getSecret('[NEW]');
         }
 
-        if (OtpAuth::Authenticate($secret, $input)) {
-            return TRUE;
+        if ($input === '') {
+            return  'One-time password is not entered.';
         }
 
-        // The below probably does not belong here
-        // Instead of TRUE/FALSE we could return string with error message
-        $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
+        if (Tessera::Authenticate($secret, $input)) {
+            return '';
+        }
 
         // Note, we intentionally do not disclose if user has not configured OTP
-        $auth->setError(Horde_Auth::REASON_MESSAGE, empty($input) ? 'One-time password is not entered.' : 'One-time password is invalid.');
-
-        return FALSE;
+        return 'One-time password is invalid or expired.';
     }
 }
