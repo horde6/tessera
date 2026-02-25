@@ -24,6 +24,11 @@ class Tessera_Api extends Horde_Registry_Api
         return $mode != 'disabled';
     }
 
+    public function showCode(): bool
+    {
+        return OtpAuth::showCode();
+    }
+
     public function isSetup(string $uid): bool
     {
         $driver = $GLOBALS['injector']->getInstance('Tessera_Driver');

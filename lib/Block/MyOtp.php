@@ -59,6 +59,8 @@ class Tessera_Block_MyOtp extends Horde_Core_Block
         $html .= '<tr><td>' . 'secondfactor/isEnabled' . ' ' . _('Mode') . '</td><td>' . ($this->registry->call('secondfactor/isEnabled') ? _('Enabled') : _('Disabled')) . '</td></tr>';
         $html .= '<tr><td>' . 'secondfactor/isOptional' . ' ' . _('API present') . '</td><td>' . ($this->registry->hasMethod('secondfactor/isOptional') ? _('Yes') : _('No')) . '</td></tr>';
         $html .= '<tr><td>' . 'secondfactor/isOptional' . ' ' . _('Mode') . '</td><td>' . ($this->registry->call('secondfactor/isOptional') ? _('Optional') : _('Required')) . '</td></tr>';
+        $html .= '<tr><td>' . 'secondfactor/showCode' . ' ' . _('API present') . '</td><td>' . ($this->registry->hasMethod('secondfactor/showCode') ? _('Yes') : _('No')) . '</td></tr>';
+        $html .= '<tr><td>' . 'secondfactor/showCode' . ' ' . _('Mode') . '</td><td>' . ($this->registry->call('secondfactor/showCode') ? _('Yes') : _('No')) . '</td></tr>';
         $html .= '<tr><td>' . 'secondfactor/blockLogin' . ' ' . _('API present') . '</td><td>' . ($this->registry->hasMethod('secondfactor/blockLogin') ? _('Yes') : _('No')) . '</td></tr>';
         $html .= '<tr><td>' . 'secondfactor/isSetup' . ' ' . _('API present') . '</td><td>' . ($this->registry->hasMethod('secondfactor/isSetup') ? _('Yes') : _('No')) . '</td></tr>';
         $html .= '<tr><td>' . _('Is a second factor setup for me?') . '</td><td>' . ($this->registry->call('secondfactor/isSetup', [$this->registry->getAuth()]) ? _('Yes') : '<a href="' . Horde::url('', true, ['app' => 'tessera']) . '">' . _('No, please setup')) . '</a></td></tr>';

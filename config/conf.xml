@@ -2,12 +2,13 @@
 <configuration>
  <configsection name="general">
   <configheader>General Settings</configheader>
-   <configstring name="name" desc="What site name should we use?" />
-   <configswitch name="mode" desc="When should we use one-time-passwords (OTP)?">enable
+  <configstring name="name" desc="What site name should we use?" />
+  <configswitch name="mode" desc="When should we use one-time-passwords (OTP)?">enable
    <case name="disabled" desc="Disable OTP" />
    <case name="enabled" desc="Enable OTP for users who configured it" />
    <case name="required" desc="Require OTP for all users" />
   </configswitch>
+  <configboolean name="showcode" desc="Display OTP while entering (enabled by default)?">true</configboolean>
  </configsection>
  <configsection name="storage">
   <configheader>Storage System Settings</configheader>

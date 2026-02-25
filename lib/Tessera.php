@@ -16,6 +16,11 @@ class Tessera
         return $GLOBALS['conf']['general']['mode'] ?? 'disabled';
     }
 
+    public static function showCode(): bool
+    {
+        return $GLOBALS['conf']['general']['showcode'] ?? true;
+    }
+
     public static function QRCodeAuth($user, $secret)
     {
         $url = Tessera_Google::GetUri(self::SiteName(), $user, $secret);
