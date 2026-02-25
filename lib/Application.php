@@ -32,7 +32,7 @@ class Tessera_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H6 (0.2)';
+    public $version = 'H6 (1.0.0-alpha2)';
 
     /**
      */
