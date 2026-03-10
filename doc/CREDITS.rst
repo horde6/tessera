@@ -1,5 +1,5 @@
 ===========================
- Othauth Development Team
+ Tessera Development Team
 ===========================
 
 

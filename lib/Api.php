@@ -26,7 +26,7 @@ class Tessera_Api extends Horde_Registry_Api
 
     public function showCode(): bool
     {
-        return OtpAuth::showCode();
+        return Tessera::showCode();
     }
 
     public function isSetup(string $uid): bool

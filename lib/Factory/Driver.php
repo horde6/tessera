@@ -20,13 +20,15 @@ class Tessera_Factory_Driver extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        $driver = Horde_String::ucfirst($GLOBALS['conf']['storage']['driver']);
-        $signature = serialize([ $driver, $GLOBALS['conf']['storage']['params']['driverconfig'] ]);
+        global $conf;
+
+        $driver = Horde_String::ucfirst($conf['storage']['driver']);
+        $signature = serialize([ $driver, $conf['storage']['params']['driverconfig'] ]);
         if (empty($this->_instances[$signature])) {
             switch ($driver) {
                 case 'Sql':
                     try {
-                        if ($GLOBALS['conf']['storage']['params']['driverconfig'] == 'horde') {
+                        if ($conf['storage']['params']['driverconfig'] == 'horde') {
                             $db = $injector->getInstance('Horde_Db_Adapter');
                         } else {
                             $db = $injector->getInstance('Horde_Core_Factory_Db')->create('tessera', 'storage');
