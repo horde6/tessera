@@ -1,6 +1,9 @@
 {
     "minimum-stability": "dev",
-    "name": "horde/tessera",
+    "name": "horde6/tessera",
+    "replace": {
+        "horde/tessera": "^3 || dev-FRAMEWORK_6_0"
+    },
     "description": "Two factor authentication Horde",
     "type": "horde-application",
     "homepage": "https://www.horde.org/apps/tessera",

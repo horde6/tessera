@@ -33,3 +33,4 @@ dependencies:
       tecnickcom/tcpdf: ^6.10
     ext:
       gettext: '*'
+vendor: horde6
