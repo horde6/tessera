@@ -2,8 +2,7 @@
 id: tessera
 name: Tessera
 full: Two Factor Authentication Module
-description: >-
-  Provides optional Two Factor Authentication through TOTP
+description: Provides optional Two Factor Authentication through TOTP
 list: horde
 type: application
 homepage: https://www.horde.org/apps/tessera
@@ -30,6 +29,12 @@ dependencies:
       horde/horde: ^6
       horde/core: ^3
       horde/db: ^3
+      horde/otp: ^1
       tecnickcom/tcpdf: ^6.10
     ext:
       gettext: '*'
+keywords:
+ - hotp
+ - totp
+ - twofactor
+vendor: horde
