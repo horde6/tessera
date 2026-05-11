@@ -1,17 +1,24 @@
 <?php
 
+declare(strict_types=1);
+
+use Horde\Otp\ProvisioningUri;
+use Horde\Otp\Secret;
+use Horde\Otp\Totp;
+use Horde\Otp\TotpParameters;
+
 class Tessera
 {
-    public static function SiteName()
+    public static function SiteName(): string
     {
-        $sitename = $GLOBALS['conf']['general']['name'];
+        $sitename = $GLOBALS['conf']['general']['name'] ?? '';
         if (empty($sitename)) {
             $sitename = 'Horde';
         }
         return $sitename;
     }
 
-    public static function Mode()
+    public static function Mode(): string
     {
         return $GLOBALS['conf']['general']['mode'] ?? 'disabled';
     }
@@ -21,30 +28,37 @@ class Tessera
         return $GLOBALS['conf']['general']['showcode'] ?? true;
     }
 
-    public static function QRCodeAuth($user, $secret)
+    public static function QRCodeAuth(string $user, string $secret): string
     {
-        $url = Tessera_Google::GetUri(self::SiteName(), $user, $secret);
-        return self::QRCode($url);
+        $uri = new ProvisioningUri(
+            Secret::fromBase32($secret),
+            $user,
+            self::SiteName(),
+            new TotpParameters(),
+        );
+        return self::QRCode((string) $uri);
     }
 
-    public static function QRCode($url, $size = 3, $type = 'H')
+    public static function QRCode(string $url, int $size = 3, string $type = 'H'): string
     {
         $qrcode = new TCPDF2DBarcode($url, 'QRCODE,' . $type);
         return $qrcode->getBarcodeHTML($size, $size);
     }
 
-    public static function GenerateKey()
+    public static function GenerateKey(): string
     {
-        return Tessera_Google::GenerateKey();
+        return Secret::generate(20)->toBase32();
     }
 
-    public static function Authenticate($secret, $otp)
+    public static function Authenticate(string $secret, string $otp): bool
     {
-        return Tessera_Google::Authenticate($secret, $otp);
+        $totp = new Totp(new TotpParameters());
+        return $totp->verify(Secret::fromBase32($secret), $otp, time()) !== null;
     }
 
-    public static function GetCode($secret)
+    public static function GetCode(string $secret): string
     {
-        return Tessera_Google::CurrentCode($secret);
+        $totp = new Totp(new TotpParameters());
+        return $totp->generate(Secret::fromBase32($secret), time())->code;
     }
 }
