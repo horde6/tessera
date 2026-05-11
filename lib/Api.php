@@ -32,7 +32,7 @@ class Tessera_Api extends Horde_Registry_Api
     public function isSetup(string $uid): bool
     {
         $driver = $GLOBALS['injector']->getInstance('Tessera_Driver');
-        $uid = $GLOBALS['registry']->convertUsername($uid, TRUE);
+        $uid = $GLOBALS['registry']->convertUsername($uid, true);
         return $driver->getSecret($uid) !== '';
     }
 

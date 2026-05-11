@@ -1,4 +1,5 @@
 <?php
+
 $this->applications['tessera']['name'] = 'Second Factor';
 $this->applications['tessera']['menu_parent'] = 'others';
 $this->applications['tessera']['provides'] = 'secondfactor';
