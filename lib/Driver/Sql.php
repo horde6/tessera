@@ -56,12 +56,10 @@ class Tessera_Driver_Sql extends Tessera_Driver
         $query = sprintf('SELECT secret FROM %s WHERE user=%s', $this->t(), $this->db->quote($user));
 
         try {
-            return $this->db->selectValue($query);
+            return (string) $this->db->selectValue($query);
         } catch (Horde_Db_Exception $e) {
             throw new Tessera_Exception($e);
         }
-
-        return '';
     }
 
     public function setSecret($user, $secret)

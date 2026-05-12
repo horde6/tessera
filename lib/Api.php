@@ -53,7 +53,7 @@ class Tessera_Api extends Horde_Registry_Api
 
         $uid = $GLOBALS['registry']->convertUsername($uid, true);
 
-        $secret = $driver->getSecret($uid);
+        $secret = (string) $driver->getSecret($uid);
 
         if ($secret === '') {
             if ($this->isOptional()) {
@@ -61,11 +61,14 @@ class Tessera_Api extends Horde_Registry_Api
             }
 
             // fallback to a special secret for new users
-            $secret = $driver->getSecret('[NEW]');
+            $secret = (string) $driver->getSecret('[NEW]');
+            if ($secret === '') {
+                return 'One-time password is not entered.';
+            }
         }
 
         if ($input === '') {
-            return  'One-time password is not entered.';
+            return 'One-time password is not entered.';
         }
 
         if (Tessera::Authenticate($secret, $input)) {
