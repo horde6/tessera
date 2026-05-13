@@ -1,47 +1,29 @@
-<table class="tessera">
-<thead>
-<tr>
-<?php
-    $cols = [
-	'user'	=> 'User',
-	'v'	=> 'View',
-	'd'	=> 'Disable OTP'
-    ];
+<div class="settings-page">
+  <h1 class="settings-page-title">OTP Administration</h1>
 
-    foreach ($cols as $key => $col) {
-	print "<th>" . htmlspecialchars($col) . "</th>\n";
-    }
-?>
-</tr>
-</thead>
-<tbody>
+<?php if (empty($users)) { ?>
+  <div class="settings-empty">No users have OTP configured.</div>
+<?php } else { ?>
+  <ul class="settings-provider-list">
 <?php
-    $cols = [
-	'user'	=> 'User',
-	'v'	=> 'OTP',
-	'd'	=> 'Disable'
-    ];
-
-    $i = 0;
     foreach ($users as $u) {
-	print "<tr>\n";
-	foreach ($cols as $key => $col) {
-	    if ($key == 'user') {
-		$text = htmlspecialchars($u);
-	    } else {
-		$query = '?a=' . htmlspecialchars($key) . '&u=' . htmlspecialchars($u);
-		if ($u == $user && $key == 'v' && $action == 'v')
-		    $text = $otp;
-		else {
-		    $text = $col;
-		}
-		$text = '<a href="' . $query . '">' . htmlspecialchars($text) . '</a>';
-	    }
-	    print "<td>$text</td>\n";
-	}
-	print "</tr>\n";
-        ++$i;
-    }
+	$viewQuery = '?a=v&u=' . urlencode($u);
+	$disableQuery = '?a=d&u=' . urlencode($u);
+	$showOtp = ($u === $user && $action === 'v');
 ?>
-</tbody>
-</table>
+    <li class="settings-provider-item">
+      <div class="settings-provider-info">
+        <span class="settings-provider-name"><?php echo htmlspecialchars($u) ?></span>
+<?php if ($showOtp) { ?>
+        <span class="settings-provider-type">Current OTP: <code class="settings-path"><?php echo htmlspecialchars($otp) ?></code></span>
+<?php } ?>
+      </div>
+      <div class="settings-provider-actions">
+        <a href="<?php echo $viewQuery ?>" class="btn btn-sm btn-secondary">View OTP</a>
+        <a href="<?php echo $disableQuery ?>" class="btn btn-sm btn-danger">Disable</a>
+      </div>
+    </li>
+<?php } ?>
+  </ul>
+<?php } ?>
+</div>

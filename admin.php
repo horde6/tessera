@@ -35,8 +35,12 @@ $mode = 'admin';
 
 Horde::startBuffer();
 
+$page_output->addStylesheet(
+    $registry->get('themesfs', 'horde') . '/default/settings.css',
+    $registry->get('themesuri', 'horde') . '/default/settings.css'
+);
+
 $page_output->header([
-    //	'body_class' => 'modal-form',
     'title' => 'Admin',
 ]);
 

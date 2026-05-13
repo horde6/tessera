@@ -1,6 +1,10 @@
-<p><b>CREATE ACCOUNT FOR <?php print htmlspecialchars(strtoupper($sitename)) ?> IN THE AUTHENTICATOR APP</b></p>
+<div class="settings-page">
+  <h1 class="settings-page-title">Configure Authenticator</h1>
+  <p class="settings-section-desc">Step 2 of 3 &mdash; Create an account for <?php echo htmlspecialchars($sitename) ?> in your authenticator app.</p>
 
-<p><u>NOTE</u>: You should have installled the authenticator app at the previous step. If you do not have it, please click the Cancel button below to go back.</p>
+  <div class="settings-callout">
+    <p>You should have installed an authenticator app in the previous step. If not, click <strong>Cancel</strong> to go back.</p>
+  </div>
 
 <?php
 $show = $vars->show == '1';
@@ -11,62 +15,87 @@ $redir = '?' . http_build_query($query);
 
 if ($show) {
 ?>
-<p><b>Step 1.</b> Open the authenticator app and add a new account by manually entering the information shown below (not all parameters may be needed).</p>
-<p><u>IMPORTANT</u>: <i>Do not save the below information, only enter it in the authenticator app!</i></p>
-<table class="tessera left">
-<thead>
-<th>Parameter</th>
-<th>Value</th>
-</thead>
-<tbody>
-<tr>
-<td>Account name</td>
-<td><?php print htmlspecialchars("$sitename: $user") ?></td>
-</tr>
-<tr>
-<td>Secret key or setup key</td>
-<td><?php print htmlspecialchars($tempkey) ?></td>
-</tr>
-<tr>
-<td>Type of key</td>
-<td>Time based (TOTP)</td>
-</tr>
-<tr>
-<td>Digits</td>
-<td>6</td>
-</tr>
-<tr>
-<td>Algorithm</td>
-<td>SHA1</td>
-</tr>
-<tr>
-<td>Interval</td>
-<td>30</td>
-</tr>
-</tbody>
-</table>
-<br>
-<p>Click <a href="<?php echo $redir ?>">here</a> if you would like to add a new account by scanning the <a href="<?php echo $redir ?>">QR Code</a>.</p>
+  <h2 class="settings-section-title">Manual Entry</h2>
+  <p class="settings-section-desc">Open your authenticator app, add a new account, and enter the parameters below.</p>
+
+  <div class="settings-callout" style="background: #fff3cd; border-color: #ffc107;">
+    <p><strong>Do not save this information</strong> &mdash; only enter it in the authenticator app.</p>
+  </div>
+
+  <ul class="settings-status-list">
+    <li class="settings-status-card">
+      <div class="settings-status-card-header">
+        <span class="settings-status-card-label">Account name</span>
+        <code class="settings-path"><?php echo htmlspecialchars("$sitename: $user") ?></code>
+      </div>
+    </li>
+    <li class="settings-status-card">
+      <div class="settings-status-card-header">
+        <span class="settings-status-card-label">Secret key</span>
+        <code class="settings-path"><?php echo htmlspecialchars($tempkey) ?></code>
+      </div>
+    </li>
+    <li class="settings-status-card">
+      <div class="settings-status-card-header">
+        <span class="settings-status-card-label">Type</span>
+        <span class="settings-status settings-status-ok">Time-based (TOTP)</span>
+      </div>
+    </li>
+    <li class="settings-status-card">
+      <div class="settings-status-card-header">
+        <span class="settings-status-card-label">Digits</span>
+        <span>6</span>
+      </div>
+    </li>
+    <li class="settings-status-card">
+      <div class="settings-status-card-header">
+        <span class="settings-status-card-label">Algorithm</span>
+        <span>SHA1</span>
+      </div>
+    </li>
+    <li class="settings-status-card">
+      <div class="settings-status-card-header">
+        <span class="settings-status-card-label">Interval</span>
+        <span>30 seconds</span>
+      </div>
+    </li>
+  </ul>
+
+  <p class="settings-section-desc" style="margin-top: 16px;">
+    Or <a href="<?php echo $redir ?>">scan a QR Code</a> instead.
+  </p>
+
 <?php } else { ?>
-<p><b>Step 1.</b> Open the authenticator app and add a new account by scanning the QR Code below. An <?php print htmlspecialchars($sitename) ?> account will be created automatically.</p>
+  <h2 class="settings-section-title">Scan QR Code</h2>
+  <p class="settings-section-desc">Open your authenticator app, add a new account, and scan the QR Code below.</p>
 
-<p><u>IMPORTANT</u>: <i>Do not save the QR Code photo on your device!</i></p>
-<?php print Tessera::QRCodeAuth($user, $tempkey) ?>
-<br>
-<p>Click <a href="<?php echo $redir ?>">here</a> if you would like to add a new account <a href="<?php echo $redir ?>">manually</a>.</p>
+  <div class="settings-callout" style="background: #fff3cd; border-color: #ffc107;">
+    <p><strong>Do not save the QR Code image</strong> on your device.</p>
+  </div>
+
+  <div class="settings-form-card" style="text-align: center;">
+    <?php echo Tessera::QRCodeAuth($user, $tempkey) ?>
+  </div>
+
+  <p class="settings-section-desc" style="margin-top: 16px;">
+    Or <a href="<?php echo $redir ?>">enter parameters manually</a>.
+  </p>
 <?php } ?>
-<br>
-<p><b>Step 2.</b> Make sure the OTP code for the <?php print htmlspecialchars($sitename) ?> account is displayed in the authenticator app (you may need to tap on the <?php print htmlspecialchars($sitename) ?> account in the app).</p>
-<p><b>Step 3.</b> Enter the OTP code below and click on the Validate button.</p>
 
-<form method="post">
-<div>
- <label for="<?php echo $otpkey ?>">OTP code</label>
- <input type="text" autocomplete="off" autocapitalize="none" autocorrect="off" id="<?php echo $otpkey ?>" name="<?php echo $otpkey ?>" value="" style="direction:ltr">
+  <h2 class="settings-section-title">Validate</h2>
+  <p class="settings-section-desc">Enter the OTP code shown in your authenticator app to complete setup.</p>
+
+  <form method="post">
+    <div class="settings-form-card">
+      <div class="settings-form-row">
+        <label class="settings-form-label" for="<?php echo $otpkey ?>">OTP Code</label>
+        <input class="settings-form-control" type="text" autocomplete="off" autocapitalize="none" autocorrect="off" id="<?php echo $otpkey ?>" name="<?php echo $otpkey ?>" value="" style="direction:ltr" placeholder="Enter 6-digit code">
+        <span class="settings-form-help">The code refreshes every 30 seconds</span>
+      </div>
+      <div class="settings-form-actions">
+        <input name="submit_button" class="btn btn-primary" value="Validate" type="submit">
+        <input name="submit_button" class="btn btn-secondary" value="Cancel" type="submit">
+      </div>
+    </div>
+  </form>
 </div>
-<br>
-<div style="display: inline-block">
-  <input name="submit_button" class="horde-default submit-button" value="Validate" type="submit">
-  <input name="submit_button" class="horde-default submit-button" value="Cancel" type="submit">
-</div>
-</form>
